@@ -78,6 +78,9 @@ Route::middleware(['auth', 'intern'])->prefix('intern')->name('intern.')->group(
     Route::get('/microskill', [InternMicroSkillController::class, 'index'])->name('microskill.index');
     Route::get('/microskill/create', [InternMicroSkillController::class, 'create'])->name('microskill.create');
     Route::post('/microskill', [InternMicroSkillController::class, 'store'])->name('microskill.store');
+    Route::get('/microskill/{submission}/edit', [InternMicroSkillController::class, 'edit'])->name('microskill.edit');
+    Route::put('/microskill/{submission}', [InternMicroSkillController::class, 'update'])->name('microskill.update');
+    Route::delete('/microskill/{submission}', [InternMicroSkillController::class, 'destroy'])->name('microskill.destroy');
     Route::get('/microskill/leaderboard', [InternMicroSkillLeaderboardController::class, 'index'])->name('microskill.leaderboard');
     
     // Final Report Routes
@@ -118,6 +121,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // Logbook Monitoring Routes
     Route::get('/logbook', [AdminLogbookController::class, 'index'])->name('logbook.index');
+    Route::delete('/logbook/{logbook}', [AdminLogbookController::class, 'destroy'])->name('logbook.destroy');
     
     // Report Monitoring Routes
     Route::get('/report', [AdminReportController::class, 'index'])->name('report.index');
@@ -125,6 +129,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/report/{report}/status', [AdminReportController::class, 'updateStatus'])->name('report.update-status');
     // Micro Skill Routes
     Route::get('/microskill', [AdminMicroSkillController::class, 'index'])->name('microskill.index');
+    Route::delete('/microskill/{submission}', [AdminMicroSkillController::class, 'destroy'])->name('microskill.destroy');
     Route::get('/microskill/leaderboard', [AdminMicroSkillLeaderboardController::class, 'index'])->name('microskill.leaderboard');
     
     // Monitoring Routes

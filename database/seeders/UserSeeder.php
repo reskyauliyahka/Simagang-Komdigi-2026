@@ -7,6 +7,7 @@ use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -15,7 +16,11 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create/Update Admin User
+        /*
+        |--------------------------------------------------------------------------
+        | ADMIN USER
+        |--------------------------------------------------------------------------
+        */
         $admin = User::updateOrCreate(
             ['email' => 'admin@simagang.com'],
             [
@@ -25,39 +30,90 @@ class UserSeeder extends Seeder
             ]
         );
 
-        $this->command->info('Admin user created:');
+        $this->command->info('Admin user created');
         $this->command->info('Email: admin@simagang.com');
         $this->command->info('Password: password123');
 
-        // Reset mentors and mentor users, then seed mentor names per request
-        \App\Models\Intern::query()->update(['mentor_id' => null]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | RESET DATA MENTOR
+        |--------------------------------------------------------------------------
+        */
+        Intern::query()->update(['mentor_id' => null]);
         Mentor::query()->delete();
         User::where('role', 'mentor')->delete();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | SEED MENTOR + USER MENTOR
+        |--------------------------------------------------------------------------
+        */
         $mentorNames = [
-            'andar', 'azwar', 'bahrawi', 'fadly', 'fajriani', 'farhan',
-            'harbaedy', 'herman', 'olga', 'rudy', 'solehuddin', 'tasmil', 'yayat', 'irfan',
-            'sukma', 'niko', 'nur alam',
+            'Rudy Hermayadi',
+            'Tasmil',
+            'Herman',
+            'Yayat Dendy Hadiyat',
+            'Bahrawi',
+            'Azwar Azis',
+            'Olga Olivia Sombolayuk',
+            'Nur Alam',
+            'Farhan Rafsanjani',
+            'Harbedy Hadya Tina',
+            'Solehuddin Hasdin',
+            'Muhammad Lutfi Sulthon Auliya S.',
+            'Nur Fajriani Hipta',
+            'Kalashnikov',
+            'Fadly Aprianto',
+            'Sukmawati',
+            'Nuraeni Yuliati',
+            'Rizqan Halalah MZ',
+            'Muhammad Irfan',
+            'Pierre Caesar Assyurah Tendean',
+            'Muhammad Azham Subhan',
+            'Idhil Cahyo Diputera',
+            'Fairuz',
+            'Muh. Andar Sugianto',
+            'Rida Sulistiana Agustin',
+            'Muhammad Harun Ashar',
+            'Muhammad Agung',
         ];
 
         $mentors = collect($mentorNames)->map(function ($name) {
+
+            $email = Str::slug($name, '.') . '@komdigi.com';
+
+            $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => Hash::make('password123'),
+                'role' => 'mentor',
+            ]);
+
             return Mentor::create([
-                'name' => ucwords($name),
-                'email' => null,
+                'name' => $name,
+                'email' => $email,
                 'position' => null,
                 'phone' => null,
                 'is_active' => true,
-                'user_id' => null,
+                'user_id' => $user->id,
             ]);
         });
-        $this->command->info('Mentors seeded: ' . $mentors->count());
 
-        // Create sample intern users
+        $this->command->info('Mentor users created: ' . $mentors->count());
+        $this->command->info('Default mentor password: password123');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SAMPLE INTERN USERS
+        |--------------------------------------------------------------------------
+        */
         $interns = [
             [
                 'name' => 'Ahmad Fauzi',
                 'email' => 'ahmad.fauzi@example.com',
-                'password' => Hash::make('password123'),
                 'gender' => 'Laki-laki',
                 'education_level' => 'S1/D4',
                 'major' => 'Teknik Informatika',
@@ -69,7 +125,6 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Siti Nurhaliza',
                 'email' => 'siti.nurhaliza@example.com',
-                'password' => Hash::make('password123'),
                 'gender' => 'Perempuan',
                 'education_level' => 'SMA/SMK',
                 'major' => 'Rekayasa Perangkat Lunak',
@@ -81,7 +136,6 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Budi Santoso',
                 'email' => 'budi.santoso@example.com',
-                'password' => Hash::make('password123'),
                 'gender' => 'Laki-laki',
                 'education_level' => 'S1/D4',
                 'major' => 'Sistem Informasi',
@@ -92,17 +146,22 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        foreach ($interns as $internData) {
+        foreach ($interns as $index => $internData) {
+
             $user = User::updateOrCreate(
                 ['email' => $internData['email']],
                 [
                     'name' => $internData['name'],
-                    'password' => $internData['password'],
+                    'password' => Hash::make('password123'),
                     'role' => 'intern',
                 ]
             );
 
-            $intern = Intern::updateOrCreate(
+            $mentor = $mentors->count() > 0
+                ? $mentors[$index % $mentors->count()]
+                : null;
+
+            Intern::updateOrCreate(
                 ['user_id' => $user->id],
                 [
                     'name' => $internData['name'],
@@ -111,25 +170,16 @@ class UserSeeder extends Seeder
                     'major' => $internData['major'],
                     'phone' => $internData['phone'],
                     'institution' => $internData['institution'],
-                    'mentor_id' => null,
+                    'mentor_id' => $mentor?->id,
                     'start_date' => $internData['start_date'],
                     'end_date' => $internData['end_date'],
-                    'photo_path' => null, // No photo for seeded users
+                    'photo_path' => null,
                     'is_active' => true,
                 ]
             );
-
-            // Distribute mentors round-robin
-            if ($mentors->count() > 0) {
-                $index = ($intern->id - 1) % $mentors->count();
-                $intern->mentor_id = $mentors[$index]->id;
-            }
-            $intern->save();
         }
 
-        $this->command->info('Sample intern users created (password: password123):');
-        foreach ($interns as $intern) {
-            $this->command->info('- ' . $intern['email']);
-        }
+        $this->command->info('Sample intern users created');
+        $this->command->info('Default intern password: password123');
     }
 }

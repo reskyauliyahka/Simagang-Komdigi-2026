@@ -134,6 +134,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // Monitoring Routes
     Route::get('/monitoring', [AdminMonitoringController::class, 'index'])->name('monitoring.index');
+    Route::get('/monitoring/export', [AdminMonitoringController::class, 'export'])->name('monitoring.export');
 });
 
 // Mentor Routes

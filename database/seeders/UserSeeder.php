@@ -144,6 +144,45 @@ class UserSeeder extends Seeder
                 'start_date' => now()->subDays(10),
                 'end_date' => now()->addDays(80),
             ],
+            [
+                'name' => 'Rina Putri Handoko',
+                'email' => 'rina.putri@example.com',
+                'gender' => 'Perempuan',
+                'education_level' => 'S1/D4',
+                'major' => 'Teknologi Informasi',
+                'phone' => '087765432109',
+                'institution' => 'Universitas Gadjah Mada',
+                'purpose' => 'Pengembangan Sistem Informasi',
+                'team' => 'Backend Development',
+                'start_date' => now()->subDays(60),
+                'end_date' => now()->addDays(30), // Selesai bulan 3
+            ],
+            [
+                'name' => 'Dimas Wijaya',
+                'email' => 'dimas.wijaya@example.com',
+                'gender' => 'Laki-laki',
+                'education_level' => 'S1/D4',
+                'major' => 'Informatika',
+                'phone' => '081987654321',
+                'institution' => 'Institut Teknologi Bandung',
+                'purpose' => 'Pengembangan Mobile App',
+                'team' => 'Mobile Development',
+                'start_date' => now()->subDays(45),
+                'end_date' => now()->addDays(45), // Selesai bulan 3
+            ],
+            [
+                'name' => 'Lestari Wijaya',
+                'email' => 'lestari.wijaya@example.com',
+                'gender' => 'Perempuan',
+                'education_level' => 'SMA/SMK',
+                'major' => 'Teknik Komputer dan Jaringan',
+                'phone' => '082112233445',
+                'institution' => 'SMK Muhammadiyah',
+                'purpose' => 'Praktik Teknis Jaringan',
+                'team' => 'Infrastructure',
+                'start_date' => now()->subDays(30),
+                'end_date' => now()->addDays(55), // Selesai bulan 3
+            ],
         ];
 
         foreach ($interns as $index => $internData) {

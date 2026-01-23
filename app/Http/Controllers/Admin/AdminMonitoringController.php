@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Intern;
 use App\Models\Mentor;
+use App\Exports\MonitoringExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminMonitoringController extends Controller
 {
@@ -135,5 +137,23 @@ class AdminMonitoringController extends Controller
             'topInstitutions',
             'topInstitutionsThisMonth'
         ));
+    }
+
+    public function export(Request $request)
+    {
+        // Prepare filters
+        $filters = [
+            'institution' => $request->input('institution'),
+            'mentor_id' => $request->input('mentor_id'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'is_active' => $request->input('is_active', '1'), // Default to active
+        ];
+
+        // Generate filename with timestamp
+        $filename = 'Laporan_Monitoring_' . now()->format('Y-m-d_His') . '.xlsx';
+
+        // Export
+        return Excel::download(new MonitoringExport($filters), $filename);
     }
 }

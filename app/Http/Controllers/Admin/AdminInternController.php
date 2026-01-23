@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class AdminInternController extends Controller
@@ -50,6 +51,21 @@ class AdminInternController extends Controller
 
     public function store(Request $request)
     {
+        $validTeams = [
+            'TIM DEA',
+            'TIM GTA',
+            'TIM VSGA',
+            'TIM TA',
+            'TIM Microskill',
+            'TIM Media (DiaPus)',
+            'TIM Tata Usaha (Umum)',
+            'FGA',
+            'Keuangan',
+            'Tim PUSDATIN',
+            'Tim Perencanaan, Anggaran, Dan Kerja Sama',
+            'Tim Kepegawaian, Persuratan dan Kearsipan'
+        ];
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -60,7 +76,7 @@ class AdminInternController extends Controller
             'institution' => ['required', 'string', 'max:255'],
             'purpose' => ['nullable', 'string', 'in:Magang,KKN Profesi,PKL,Praktek Industri,Magang Industri,Guru Magang Industri,Job on Training'],
             'mentor_id' => ['nullable', 'exists:mentors,id'],
-            'team' => ['nullable', 'string', 'in:TIM DEA,TIM GTA,TIM VSGA,TIM TA,TIM Microskill,TIM Media (DiaPus),TIM Tata Usaha (Umum),FGA,Keuangan'],
+            'team' => ['nullable', 'string', Rule::in($validTeams)],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date', 'after:start_date'],
             'photo' => ['required', 'image', 'max:2048'],
@@ -152,6 +168,21 @@ class AdminInternController extends Controller
 
     public function update(Request $request, Intern $intern)
     {
+        $validTeams = [
+            'TIM DEA',
+            'TIM GTA',
+            'TIM VSGA',
+            'TIM TA',
+            'TIM Microskill',
+            'TIM Media (DiaPus)',
+            'TIM Tata Usaha (Umum)',
+            'FGA',
+            'Keuangan',
+            'Tim PUSDATIN',
+            'Tim Perencanaan, Anggaran, Dan Kerja Sama',
+            'Tim Kepegawaian, Persuratan dan Kearsipan'
+        ];
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $intern->user_id],
@@ -162,7 +193,7 @@ class AdminInternController extends Controller
             'institution' => ['required', 'string', 'max:255'],
             'purpose' => ['nullable', 'string', 'in:Magang,KKN Profesi,PKL,Praktek Industri,Magang Industri,Guru Magang Industri,Job on Training'],
             'mentor_id' => ['nullable', 'exists:mentors,id'],
-            'team' => ['nullable', 'string', 'in:TIM DEA,TIM GTA,TIM VSGA,TIM TA,TIM Microskill,TIM Media (DiaPus),TIM Tata Usaha (Umum),FGA,Keuangan'],
+            'team' => ['nullable', 'string', Rule::in($validTeams)],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date', 'after:start_date'],
             'photo' => ['nullable', 'image', 'max:2048'],

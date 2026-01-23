@@ -33,6 +33,9 @@
                     <option value="TIM Tata Usaha (Umum)" {{ request('team') == 'TIM Tata Usaha (Umum)' ? 'selected' : '' }}>TIM Tata Usaha (Umum)</option>
                     <option value="FGA" {{ request('team') == 'FGA' ? 'selected' : '' }}>FGA</option>
                     <option value="Keuangan" {{ request('team') == 'Keuangan' ? 'selected' : '' }}>Keuangan</option>
+                    <option value="Tim PUSDATIN" {{ request('team') == 'Tim PUSDATIN' ? 'selected' : '' }}>Tim PUSDATIN</option>
+                    <option value="Tim Perencanaan, Anggaran, Dan Kerja Sama" {{ request('team') == 'Tim Perencanaan, Anggaran, Dan Kerja Sama' ? 'selected' : '' }}>Tim Perencanaan, Anggaran, Dan Kerja Sama</option>
+                    <option value="Tim Kepegawaian, Persuratan dan Kearsipan" {{ request('team') == 'Tim Kepegawaian, Persuratan dan Kearsipan' ? 'selected' : '' }}>Tim Kepegawaian, Persuratan dan Kearsipan</option>
                 </select>
             </div>
             <div>

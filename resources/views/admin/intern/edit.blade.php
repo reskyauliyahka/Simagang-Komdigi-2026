@@ -114,6 +114,9 @@
                         <option value="TIM Tata Usaha (Umum)" {{ old('team', $intern->team) == 'TIM Tata Usaha (Umum)' ? 'selected' : '' }}>TIM Tata Usaha (Umum)</option>
                         <option value="FGA" {{ old('team', $intern->team) == 'FGA' ? 'selected' : '' }}>FGA</option>
                         <option value="Keuangan" {{ old('team', $intern->team) == 'Keuangan' ? 'selected' : '' }}>Keuangan</option>
+                        <option value="Tim PUSDATIN" {{ old('team', $intern->team) == 'Tim PUSDATIN' ? 'selected' : '' }}>Tim PUSDATIN</option>
+                        <option value="Tim Perencanaan, Anggaran, Dan Kerja Sama" {{ old('team', $intern->team) == 'Tim Perencanaan, Anggaran, Dan Kerja Sama' ? 'selected' : '' }}>Tim Perencanaan, Anggaran, Dan Kerja Sama</option>
+                        <option value="Tim Kepegawaian, Persuratan dan Kearsipan" {{ old('team', $intern->team) == 'Tim Kepegawaian, Persuratan dan Kearsipan' ? 'selected' : '' }}>Tim Kepegawaian, Persuratan dan Kearsipan</option>
                     </select>
                     @error('team')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
                 </div>
@@ -163,7 +166,7 @@
             </div>
 
             <div class="flex items-center justify-between">
-                <a href="{{ route('admin.intern.show', $intern) }}" class="text-blue-600 hover:text-blue-500">
+                <a href="{{ route('admin.intern.index') }}" class="text-blue-600 hover:text-blue-500">
                     <i class="fas fa-arrow-left mr-2"></i>Kembali
                 </a>
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">

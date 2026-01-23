@@ -113,6 +113,9 @@
                         <option value="TIM Tata Usaha (Umum)" {{ old('team') == 'TIM Tata Usaha (Umum)' ? 'selected' : '' }}>TIM Tata Usaha (Umum)</option>
                         <option value="FGA" {{ old('team') == 'FGA' ? 'selected' : '' }}>FGA</option>
                         <option value="Keuangan" {{ old('team') == 'Keuangan' ? 'selected' : '' }}>Keuangan</option>
+                        <option value="Tim PUSDATIN" {{ old('team') == 'Tim PUSDATIN' ? 'selected' : '' }}>Tim PUSDATIN</option>
+                        <option value="Tim Perencanaan, Anggaran, Dan Kerja Sama" {{ old('team') == 'Tim Perencanaan, Anggaran, Dan Kerja Sama' ? 'selected' : '' }}>Tim Perencanaan, Anggaran, Dan Kerja Sama</option>
+                        <option value="Tim Kepegawaian, Persuratan dan Kearsipan" {{ old('team') == 'Tim Kepegawaian, Persuratan dan Kearsipan' ? 'selected' : '' }}>Tim Kepegawaian, Persuratan dan Kearsipan</option>
                     </select>
                     @error('team')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
                 </div>

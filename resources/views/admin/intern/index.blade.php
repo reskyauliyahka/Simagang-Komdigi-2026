@@ -120,15 +120,24 @@
                                 <tr class="hover:bg-blue-50 transition-colors duration-150">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            @if($intern->photo_path)
-                                                <img src="{{ url('storage/' . $intern->photo_path) }}"
-                                                    class="w-10 h-10 rounded-full object-cover border-2 border-blue-200 mr-3"
-                                                    alt="{{ $intern->name }}">
-                                            @else
-                                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 border-2 border-blue-200">
-                                                    <i class="fas fa-user text-blue-600"></i>
-                                                </div>
-                                            @endif
+                                           @if($intern->photo_path)
+    <div class="w-10 h-10 rounded-full overflow-hidden
+                border-2 border-blue-200 mr-3
+                bg-gray-100 flex-shrink-0">
+        <img src="{{ url('storage/' . $intern->photo_path) }}"
+             alt="{{ $intern->name }}"
+             class="w-full h-full object-cover object-center">
+    </div>
+            @else
+                <div class="w-10 h-10 rounded-full
+                            bg-blue-100
+                            flex items-center justify-center
+                            border-2 border-blue-200 mr-3
+                            flex-shrink-0">
+                    <i class="fas fa-user text-blue-600"></i>
+                </div>
+            @endif
+
                                             <span class="text-sm font-medium text-gray-900">
                                                 {{ $intern->name }}
                                             </span>

@@ -31,13 +31,21 @@
             <!-- Photo -->
             <div class="flex flex-col items-center">
                 @if($intern->photo_path)
-                    <img src="{{ url('storage/'.$intern->photo_path) }}"
-                         class="w-40 h-40 rounded-xl object-cover shadow">
-                @else
-                    <div class="w-40 h-40 rounded-xl bg-gray-100 flex items-center justify-center">
-                        <i class="fas fa-user text-5xl text-gray-400"></i>
-                    </div>
-                @endif
+    <img src="{{ url('storage/'.$intern->photo_path) }}"
+         alt="{{ $intern->name }}"
+         class="w-40 h-40 rounded-full object-cover
+                border-4 border-blue-300
+                shadow-lg ring-4 ring-blue-100">
+            @else
+                <div class="w-40 h-40 rounded-full
+                            bg-blue-100
+                            flex items-center justify-center
+                            border-4 border-blue-200
+                            shadow-lg">
+                    <i class="fas fa-user text-5xl text-blue-500"></i>
+                </div>
+            @endif
+
 
                 <span class="mt-4 px-4 py-1.5 rounded-full text-xs font-semibold
                     {{ $intern->is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">

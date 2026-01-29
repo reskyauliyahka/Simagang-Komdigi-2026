@@ -38,8 +38,8 @@ class AdminInternController extends Controller
             $query->where('is_active', $request->boolean('is_active'));
         }
         
-        $interns = $query->orderBy('name')->paginate(15)->withQueryString();
-        $mentors = \App\Models\Mentor::orderBy('name')->get();
+        $interns = $query->orderByDesc('created_at')->paginate(15)->withQueryString();
+        $mentors = \App\Models\Mentor::orderByDesc('created_at')->get();
         
         return view('admin.intern.index', compact('interns', 'mentors'));
     }

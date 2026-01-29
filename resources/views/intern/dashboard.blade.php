@@ -220,13 +220,13 @@
             <div class="bg-blue-600 px-6 py-4">
                 <h2 class="text-xl font-bold text-white flex items-center">
                     <i class="fas fa-trophy mr-3"></i>
-                    Leaderboard Mikro Skill (Top 10)
+                    Leaderboard Mikro Skill (Top 3)
                 </h2>
             </div>
             <div class="p-6">
-                @if(isset($topMicroSkills) && $topMicroSkills->count())
+                @if(isset($topMicroSkills) && $topMicroSkills->count() > 0)
                     <div class="space-y-3">
-                        @foreach($topMicroSkills as $index => $row)
+                        @foreach($topMicroSkills->take(3) as $index => $row)
                             <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg hover:shadow-md transition-all duration-300 border border-blue-100">
                                 <div class="flex items-center">
                                     <!-- Rank Badge -->
@@ -270,13 +270,15 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="mt-6 text-center">
-                        <a href="{{ route('intern.microskill.leaderboard') }}" 
-                           class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300">
-                            <span>Lihat Selengkapnya</span>
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
+                    @if($topMicroSkills->count() > 3)
+                        <div class="mt-6 text-center">
+                            <a href="{{ route('intern.microskill.leaderboard') }}" 
+                               class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300">
+                                <span>Lihat Selengkapnya</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    @endif
                 @else
                     <div class="flex flex-col items-center justify-center py-8 text-gray-500">
                         <i class="fas fa-chart-line text-4xl mb-3 text-gray-300"></i>

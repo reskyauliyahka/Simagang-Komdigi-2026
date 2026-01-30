@@ -3,10 +3,10 @@
 @section('title', 'Tambah Anak Magang - Sistem Magang')
 
 @section('content')
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 p-6 lg:px-8">
 
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 gap-4 mb-5">
         <div>
             <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 Tambah Anak Magang

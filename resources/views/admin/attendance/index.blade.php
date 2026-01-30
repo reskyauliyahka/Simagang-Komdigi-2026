@@ -15,7 +15,10 @@
         </div>
 
         <!-- Filter Form -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6 border-t-4 border-blue-500">
+            <h2 class="text-lg font-semibold text-blue-900 mb-4 flex items-center">
+                <i class="fas fa-filter mr-2 text-blue-600"></i>Filter & Pencarian
+            </h2>
             <form method="GET" action="{{ route('admin.attendance.index') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-600 mb-2">Anak Magang</label>
@@ -33,7 +36,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-600 mb-2">Status</label>
                     <select name="status" id="status" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ">
                         <option value="">Semua</option>
                         <option value="hadir" {{ request('status') == 'hadir' ? 'selected' : '' }}>Hadir</option>
                         <option value="izin" {{ request('status') == 'izin' ? 'selected' : '' }}>Izin</option>
@@ -80,8 +83,8 @@
                 </h2>
             </div>
             <div class="p-6">
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
+                <div class="max-h-[500px] overflow-x-auto overflow-y-auto pr-2">
+                    <table class="min-w-[1000px] w-full divide-y divide-gray-200">
                         <thead>
                             <tr class="bg-blue-50">
                                 <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider rounded-tl-lg">Tanggal</th>
@@ -98,14 +101,14 @@
                         <tbody class="bg-white divide-y divide-gray-100">
                             @forelse($attendances as $attendance)
                                 <tr class="hover:bg-blue-50 transition-colors duration-150">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">{{ $attendance->date->format('d M Y') }}</div>
+                                    <td class="px-6 py-4 whitespace-nowrap ">
+                                        <div class="text-sm text-center font-medium text-gray-900">{{ $attendance->date->format('d M Y') }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">{{ $attendance->intern->name }}</div>
+                                        <div class="text-sm text-center font-medium text-gray-900">{{ $attendance->intern->name }}</div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full
+                                    <td class="px-6 py-4 whitespace-nowrap ">
+                                        <span class="px-3 py-1 inline-flex text-center text-xs leading-5 font-semibold rounded-full
                                             @if($attendance->status == 'hadir') bg-green-100 text-green-800
                                             @elseif($attendance->status == 'izin') bg-yellow-100 text-yellow-800
                                             @else bg-red-100 text-red-800
@@ -114,38 +117,38 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-600">
+                                        <div class="text-sm text-gray-600 text-center">
                                             {{ $attendance->check_in ? \Carbon\Carbon::parse($attendance->check_in)->format('H:i') : '-' }}
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap text-center flex justify-center">
                                         @if($attendance->photo_path)
                                             <img src="{{ url('storage/' . $attendance->photo_path) }}" 
-                                                 alt="Check In" 
-                                                 class="w-12 h-12 object-cover rounded-lg border-2 border-blue-200 cursor-pointer hover:border-blue-400 transition-all" 
-                                                 onclick="window.open('{{ url('storage/' . $attendance->photo_path) }}', '_blank')" 
-                                                 title="Klik untuk melihat full size">
+                                                    alt="Check In" 
+                                                    class="w-12 h-12 object-cover rounded-lg border-2 border-blue-200 cursor-pointer hover:border-blue-400 transition-all" 
+                                                    onclick="window.open('{{ url('storage/' . $attendance->photo_path) }}', '_blank')" 
+                                                    title="Klik untuk melihat full size">
                                         @else
                                             <span class="text-gray-400">-</span>
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-600">
+                                        <div class="text-sm text-gray-600 text-center">
                                             {{ $attendance->check_out ? \Carbon\Carbon::parse($attendance->check_out)->format('H:i') : '-' }}
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap text-center flex justify-center">
                                         @if($attendance->photo_checkout)
                                             <img src="{{ url('storage/' . $attendance->photo_checkout) }}" 
-                                                 alt="Check Out" 
-                                                 class="w-12 h-12 object-cover rounded-lg border-2 border-blue-200 cursor-pointer hover:border-blue-400 transition-all" 
-                                                 onclick="window.open('{{ url('storage/' . $attendance->photo_checkout) }}', '_blank')" 
-                                                 title="Klik untuk melihat full size">
+                                                    alt="Check Out" 
+                                                    class="w-12 h-12 object-cover rounded-lg border-2 border-blue-200 cursor-pointer hover:border-blue-400 transition-all" 
+                                                    onclick="window.open('{{ url('storage/' . $attendance->photo_checkout) }}', '_blank')" 
+                                                    title="Klik untuk melihat full size">
                                         @else
                                             <span class="text-gray-400">-</span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">
                                         @if($attendance->document_status)
                                             <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full
                                                 @if($attendance->document_status == 'approved') bg-green-100 text-green-800
@@ -158,7 +161,7 @@
                                             <span class="text-gray-400">-</span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">
                                         <a href="{{ route('admin.attendance.show', $attendance) }}" 
                                            class="text-blue-600 hover:text-blue-900 inline-block transition-colors" 
                                                 title="Lihat detail">
@@ -167,7 +170,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9" class="px-6 py-8 text-center">
+                                    <td colspan="9" class="px-6 py-8 text-center ">
                                         <div class="flex flex-col items-center justify-center text-gray-500">
                                             <i class="fas fa-inbox text-4xl mb-3 text-gray-300"></i>
                                             <p class="text-sm">Belum ada data absensi.</p>

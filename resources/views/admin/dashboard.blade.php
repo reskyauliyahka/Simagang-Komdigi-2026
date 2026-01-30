@@ -129,18 +129,18 @@
                                 <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider rounded-tl-lg">Nama</th>
                                 <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider">Status</th>
                                 <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider">Check In</th>
-                                <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider">Foto</th>
+                                <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider">Foto Check In</th>
                                 <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider">Check Out</th>
-                                <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider rounded-tr-lg">Foto Out</th>
+                                <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider rounded-tr-lg">Foto Check Out</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-100">
                             @forelse($todayAttendances as $attendance)
                                 <tr class="hover:bg-blue-50 transition-colors duration-150">
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">
                                         <div class="text-sm font-medium text-gray-900">{{ $attendance->intern->name }}</div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">
                                         <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full
                                             @if($attendance->status == 'hadir') bg-green-100 text-green-800
                                             @elseif($attendance->status == 'izin') bg-yellow-100 text-yellow-800
@@ -150,24 +150,24 @@
                                             {{ ucfirst($attendance->status) }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 text-center">
                                         {{ $attendance->check_in ? \Carbon\Carbon::parse($attendance->check_in)->format('H:i') : '-' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap flex justify-center">
                                         @if($attendance->photo_path)
                                             <img src="{{ url('storage/' . $attendance->photo_path) }}" 
-                                                 alt="Check In" 
-                                                 class="w-12 h-12 object-cover rounded-lg border-2 border-blue-200 cursor-pointer hover:border-blue-400 transition-all" 
-                                                 onclick="window.open('{{ url('storage/' . $attendance->photo_path) }}', '_blank')" 
-                                                 title="Klik untuk melihat full size">
+                                                    alt="Check In" 
+                                                    class="w-12 h-12 object-cover rounded-lg border-2 border-blue-200 cursor-pointer hover:border-blue-400 transition-all" 
+                                                    onclick="window.open('{{ url('storage/' . $attendance->photo_path) }}', '_blank')" 
+                                                    title="Klik untuk melihat full size">
                                         @else
                                             <span class="text-gray-400">-</span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 text-center">
                                         {{ $attendance->check_out ? \Carbon\Carbon::parse($attendance->check_out)->format('H:i') : '-' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap flex justify-center">
                                         @if($attendance->photo_checkout)
                                             <img src="{{ url('storage/' . $attendance->photo_checkout) }}" 
                                                  alt="Check Out" 
@@ -245,7 +245,7 @@
                                 </div>
                                 
                                 <!-- Score Badge -->
-                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-semibold">
+                                <span class="px-3 py-1 bg-indigo-100 text-center text-indigo-800 rounded-full text-xs font-semibold">
                                     {{ $row['total'] }} course
                                 </span>
                             </div>

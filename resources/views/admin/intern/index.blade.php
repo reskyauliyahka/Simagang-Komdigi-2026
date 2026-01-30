@@ -9,7 +9,7 @@
         <!-- Header Section -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
-                <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-1">
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
                     Kelola Anak Magang
                 </h1>
                 <p class="text-sm text-blue-700">
@@ -101,8 +101,8 @@
             </div>
 
             <div class="p-6">
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
+                <div class="max-h-[500px] overflow-x-auto overflow-y-auto pr-2">
+                    <table class="min-w-[1000px] w-full divide-y divide-gray-200">
                         <thead>
                             <tr class="bg-blue-50">
                                 <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider rounded-tl-lg">Nama</th>

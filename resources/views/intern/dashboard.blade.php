@@ -280,7 +280,7 @@
 
                                     <!-- Score Badge -->
                                     <span
-                                        class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-semibold">
+                                        class="inline-flex items-center justify-center px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-semibold text-center">
                                         {{ $row['total'] }} course
                                     </span>
                                 </div>
